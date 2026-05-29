@@ -1,1 +1,117 @@
-<p>simulation works!</p>
+<section class="simulation-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Simulação de Crédito</h1>
+            <p>
+                Simule operações de cessão de crédito e visualize o valor líquido da operação.
+            </p>
+        </div>
+    </div>
+
+    <div class="simulation-grid">
+
+        <div class="simulation-form-card">
+
+            <h2>Dados da Operação</h2>
+
+            <form class="simulation-form" [formGroup]="simulationForm">
+
+                <div class="form-group">
+                    <label>Valor do Recebível</label>
+
+                    <input type="number" formControlName="valorRecebivel" placeholder="100000">
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Recebível</label>
+
+                    <select formControlName="tipoRecebivel">
+
+                        <option value="duplicata">
+                            Duplicata Mercantil
+                        </option>
+
+                        <option value="cheque">
+                            Cheque Pré-datado
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Prazo (meses)</label>
+
+                    <input type="number" formControlName="prazo" placeholder="12">
+                </div>
+
+                <div class="form-group">
+                    <label>Moeda do Título</label>
+
+                    <select formControlName="moedaTitulo">
+
+                        <option value="BRL">
+                            BRL
+                        </option>
+
+                        <option value="USD">
+                            USD
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Moeda de Liquidação</label>
+
+                    <select formControlName="moedaLiquidacao">
+
+                        <option value="BRL">
+                            BRL
+                        </option>
+
+                        <option value="USD">
+                            USD
+                        </option>
+
+                    </select>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="simulation-result-card">
+
+            <div class="result-header">
+                <span>Resultado da Simulação</span>
+            </div>
+
+            <div class="result-value">
+                <h1>R$ 92.450,00</h1>
+            </div>
+
+            <div class="result-details">
+
+                <div class="detail-item">
+                    <span>Spread Aplicado</span>
+                    <strong>1,5%</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Taxa Base</span>
+                    <strong>1,0%</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Operação Cross Currency</span>
+                    <strong>Não</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
