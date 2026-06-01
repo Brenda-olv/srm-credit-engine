@@ -5,12 +5,12 @@
     </div>
 
     <div class="menu">
-        <a routerLink="/">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             Dashboard
         </a>
 
-        <a routerLink="/simulation">
-            Simulation
+        <a routerLink="/simulation" routerLinkActive="active">
+            Simulação
         </a>
     </div>
 </nav>

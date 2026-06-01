@@ -14,7 +14,7 @@ export const routes: Routes = [
                 component: DashboardComponent
             },
             {
-                path: '',
+                path: 'simulation',
                 component: SimulationComponent
             },
         ]

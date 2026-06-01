@@ -1,12 +1,15 @@
 <section class="simulation-page">
 
     <div class="page-header">
+
         <div>
             <h1>Simulação de Crédito</h1>
+
             <p>
                 Simule operações de cessão de crédito e visualize o valor líquido da operação.
             </p>
         </div>
+
     </div>
 
     <div class="simulation-grid">
@@ -18,12 +21,42 @@
             <form class="simulation-form" [formGroup]="simulationForm">
 
                 <div class="form-group">
+
                     <label>Valor do Recebível</label>
 
-                    <input type="number" formControlName="valorRecebivel" placeholder="100000">
+                    <input type="number" formControlName="valorRecebivel">
+
+                    @if (
+                    simulationForm.controls.valorRecebivel.touched &&
+                    simulationForm.controls.valorRecebivel.invalid
+                    ) {
+
+                    <div class="error-message">
+
+                        @if (
+                        simulationForm.controls.valorRecebivel.errors?.['required']
+                        ) {
+                        <span>
+                            Informe o valor do recebível.
+                        </span>
+                        }
+
+                        @if (
+                        simulationForm.controls.valorRecebivel.errors?.['min']
+                        ) {
+                        <span>
+                            O valor deve ser maior que zero.
+                        </span>
+                        }
+
+                    </div>
+
+                    }
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Tipo de Recebível</label>
 
                     <select formControlName="tipoRecebivel">
@@ -37,15 +70,47 @@
                         </option>
 
                     </select>
+
                 </div>
 
+
                 <div class="form-group">
+
                     <label>Prazo (meses)</label>
 
-                    <input type="number" formControlName="prazo" placeholder="12">
+                    <input type="number" formControlName="prazo">
+
+                    @if (
+                    simulationForm.controls.prazo.touched &&
+                    simulationForm.controls.prazo.invalid
+                    ) {
+
+                    <div class="error-message">
+
+                        @if (
+                        simulationForm.controls.prazo.errors?.['required']
+                        ) {
+                        <span>
+                            Informe o prazo.
+                        </span>
+                        }
+
+                        @if (
+                        simulationForm.controls.prazo.errors?.['min']
+                        ) {
+                        <span>
+                            O prazo deve ser maior que zero.
+                        </span>
+                        }
+
+                    </div>
+
+                    }
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Moeda do Título</label>
 
                     <select formControlName="moedaTitulo">
@@ -59,9 +124,12 @@
                         </option>
 
                     </select>
+
                 </div>
 
+
                 <div class="form-group">
+
                     <label>Moeda de Liquidação</label>
 
                     <select formControlName="moedaLiquidacao">
@@ -75,6 +143,7 @@
                         </option>
 
                     </select>
+
                 </div>
 
             </form>
@@ -88,24 +157,51 @@
             </div>
 
             <div class="result-value">
-                <h1>R$ 92.450,00</h1>
+
+                <h1>
+                    R$
+                    {{ resultado?.valorPresente | number:'1.2-2' }}
+                </h1>
+
             </div>
 
             <div class="result-details">
 
                 <div class="detail-item">
+
                     <span>Spread Aplicado</span>
-                    <strong>1,5%</strong>
+
+                    <strong>
+                        {{ (resultado?.spread ?? 0) * 100 }}%
+                    </strong>
+
                 </div>
 
                 <div class="detail-item">
+
                     <span>Taxa Base</span>
-                    <strong>1,0%</strong>
+
+                    <strong>
+                        {{ (resultado?.taxaBase ?? 0) * 100 }}%
+                    </strong>
+
                 </div>
 
                 <div class="detail-item">
+
                     <span>Operação Cross Currency</span>
-                    <strong>Não</strong>
+
+                    <strong>
+
+                        {{
+                        simulationForm.value.moedaTitulo !==
+                        simulationForm.value.moedaLiquidacao
+                        ? 'Sim'
+                        : 'Não'
+                        }}
+
+                    </strong>
+
                 </div>
 
             </div>

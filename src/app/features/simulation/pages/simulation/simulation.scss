@@ -77,3 +77,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+.error-message {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.error-message span {
+    display: block;
+}
