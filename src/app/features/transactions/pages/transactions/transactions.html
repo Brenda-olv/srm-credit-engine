@@ -1,0 +1,158 @@
+<section class="transactions-page">
+
+    <header class="page-header">
+
+        <h1>
+            Histórico de Transações
+        </h1>
+
+        <p>
+            Consulte operações realizadas e filtre os resultados por tipo de recebível e moeda.
+        </p>
+
+    </header>
+
+    <section class="filters-card" aria-labelledby="filters-title">
+
+        <h2 id="filters-title">
+            Filtros
+        </h2>
+
+        <form [formGroup]="filterForm" class="filters-form">
+
+            <div class="form-group">
+
+                <label for="tipo">
+                    Tipo de Recebível
+                </label>
+
+                <select id="tipo" formControlName="tipo">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="Duplicata">
+                        Duplicata
+                    </option>
+
+                    <option value="Cheque">
+                        Cheque
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="moeda">
+                    Moeda
+                </label>
+
+                <select id="moeda" formControlName="moeda">
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                    <option value="BRL">
+                        BRL
+                    </option>
+
+                    <option value="USD">
+                        USD
+                    </option>
+
+                </select>
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="table-card" aria-labelledby="transactions-title">
+
+        <h2 id="transactions-title">
+            Transações
+        </h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <caption class="sr-only">
+                    Lista de transações financeiras
+                </caption>
+
+                <thead>
+
+                    <tr>
+
+                        <th scope="col">
+                            ID
+                        </th>
+
+                        <th scope="col">
+                            Tipo
+                        </th>
+
+                        <th scope="col">
+                            Moeda
+                        </th>
+
+                        <th scope="col">
+                            Valor
+                        </th>
+
+                        <th scope="col">
+                            Data
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @for (
+                    transaction of filteredTransactions;
+                    track transaction.id
+                    ) {
+
+                    <tr>
+
+                        <td>
+                            {{ transaction.id }}
+                        </td>
+
+                        <td>
+                            {{ transaction.tipo }}
+                        </td>
+
+                        <td>
+                            {{ transaction.moeda }}
+                        </td>
+
+                        <td>
+                            {{ transaction.valor | number:'1.2-2' }}
+                        </td>
+
+                        <td>
+                            {{ transaction.data }}
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</section>
