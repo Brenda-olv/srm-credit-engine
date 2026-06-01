@@ -62,13 +62,17 @@ export class SimulationComponent {
 
   private calculateSimulation(): void {
 
-    const formValue = this.simulationForm.getRawValue();
+    const formValue =
+      this.simulationForm.getRawValue();
 
-    this.resultado = this.simulationService.calculate(
-      formValue.valorRecebivel ?? 0,
-      formValue.prazo ?? 0,
-      formValue.tipoRecebivel ?? 'duplicata'
-    );
+    this.resultado =
+      this.simulationService.calculate(
+        formValue.valorRecebivel ?? 0,
+        formValue.prazo ?? 0,
+        formValue.tipoRecebivel ?? 'duplicata',
+        formValue.moedaTitulo ?? 'BRL',
+        formValue.moedaLiquidacao ?? 'BRL'
+      );
 
   }
 

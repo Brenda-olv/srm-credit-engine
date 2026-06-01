@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { DuplicataStrategy } from '../strategies/duplicata.strategy';
+import { ChequeStrategy } from '../strategies/cheque.strategy';
 
 import { SimulationResult } from '../models/simulation-result.model';
-import { ChequeStrategy } from '../strategies/cheque.strategy';
+import { CurrencyService } from './currency.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,16 @@ export class SimulationService {
 
   private readonly taxaBase = 0.01;
 
+  constructor(
+    private currencyService: CurrencyService
+  ) { }
+
   calculate(
     valorRecebivel: number,
     prazo: number,
-    tipoRecebivel: string
+    tipoRecebivel: string,
+    moedaTitulo: string,
+    moedaLiquidacao: string
   ): SimulationResult {
 
     const strategy =
@@ -32,10 +39,18 @@ export class SimulationService {
         prazo
       );
 
+    const valorLiquidacao =
+      this.currencyService.convert(
+        valorPresente,
+        moedaTitulo,
+        moedaLiquidacao
+      );
+
     return {
       spread,
       taxaBase: this.taxaBase,
-      valorPresente
+      valorPresente,
+      valorLiquidacao
     };
   }
 }

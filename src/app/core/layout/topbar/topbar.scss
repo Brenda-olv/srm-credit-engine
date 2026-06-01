@@ -1,22 +1,27 @@
 .topbar {
     height: 80px;
-
     background: white;
-
     border-bottom: 1px solid #e2e8f0;
-
     display: flex;
     align-items: center;
-
     padding: 0 32px;
+    box-sizing: border-box;
 }
 
-.topbar h1 {
-    margin: 0;
-    font-size: 24px;
+.topbar-content {
+    display: flex;
+    flex-direction: column;
 }
 
-.topbar span {
-    color: #64748b;
+.system-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.system-description {
+    margin-top: 4px;
+
     font-size: 14px;
+    color: #64748b;
 }

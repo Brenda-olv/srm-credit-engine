@@ -1,16 +1,39 @@
-<nav class="sidebar">
-    <div class="logo">
-        <h2>SRM</h2>
-        <span>Credit Engine</span>
+<nav class="sidebar" aria-label="Menu principal">
+
+    <div class="logo" aria-label="SRM Credit Engine">
+
+        <span class="logo-title">
+            SRM
+        </span>
+
+        <span class="logo-subtitle">
+            Credit Engine
+        </span>
+
     </div>
 
-    <div class="menu">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            Dashboard
-        </a>
+    <ul class="menu">
 
-        <a routerLink="/simulation" routerLinkActive="active">
-            Simulação
-        </a>
-    </div>
+        <li>
+
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a routerLink="/simulation" routerLinkActive="active">
+
+                Simulação
+
+            </a>
+
+        </li>
+
+    </ul>
+
 </nav>

@@ -1,6 +1,6 @@
 <section class="simulation-page">
 
-    <div class="page-header">
+    <header class="page-header">
 
         <div>
             <h1>Simulação de Crédito</h1>
@@ -10,11 +10,11 @@
             </p>
         </div>
 
-    </div>
+    </header>
 
     <div class="simulation-grid">
 
-        <div class="simulation-form-card">
+        <section class="simulation-form-card">
 
             <h2>Dados da Operação</h2>
 
@@ -22,9 +22,11 @@
 
                 <div class="form-group">
 
-                    <label>Valor do Recebível</label>
+                    <label for="valorRecebivel">
+                        Valor do Recebível
+                    </label>
 
-                    <input type="number" formControlName="valorRecebivel">
+                    <input id="valorRecebivel" type="number" formControlName="valorRecebivel">
 
                     @if (
                     simulationForm.controls.valorRecebivel.touched &&
@@ -36,17 +38,21 @@
                         @if (
                         simulationForm.controls.valorRecebivel.errors?.['required']
                         ) {
+
                         <span>
                             Informe o valor do recebível.
                         </span>
+
                         }
 
                         @if (
                         simulationForm.controls.valorRecebivel.errors?.['min']
                         ) {
+
                         <span>
                             O valor deve ser maior que zero.
                         </span>
+
                         }
 
                     </div>
@@ -57,9 +63,11 @@
 
                 <div class="form-group">
 
-                    <label>Tipo de Recebível</label>
+                    <label for="tipoRecebivel">
+                        Tipo de Recebível
+                    </label>
 
-                    <select formControlName="tipoRecebivel">
+                    <select id="tipoRecebivel" formControlName="tipoRecebivel">
 
                         <option value="duplicata">
                             Duplicata Mercantil
@@ -73,12 +81,13 @@
 
                 </div>
 
-
                 <div class="form-group">
 
-                    <label>Prazo (meses)</label>
+                    <label for="prazo">
+                        Prazo (meses)
+                    </label>
 
-                    <input type="number" formControlName="prazo">
+                    <input id="prazo" type="number" formControlName="prazo">
 
                     @if (
                     simulationForm.controls.prazo.touched &&
@@ -90,17 +99,21 @@
                         @if (
                         simulationForm.controls.prazo.errors?.['required']
                         ) {
+
                         <span>
                             Informe o prazo.
                         </span>
+
                         }
 
                         @if (
                         simulationForm.controls.prazo.errors?.['min']
                         ) {
+
                         <span>
                             O prazo deve ser maior que zero.
                         </span>
+
                         }
 
                     </div>
@@ -111,9 +124,11 @@
 
                 <div class="form-group">
 
-                    <label>Moeda do Título</label>
+                    <label for="moedaTitulo">
+                        Moeda do Recebível
+                    </label>
 
-                    <select formControlName="moedaTitulo">
+                    <select id="moedaTitulo" formControlName="moedaTitulo">
 
                         <option value="BRL">
                             BRL
@@ -127,12 +142,13 @@
 
                 </div>
 
-
                 <div class="form-group">
 
-                    <label>Moeda de Liquidação</label>
+                    <label for="moedaLiquidacao">
+                        Moeda de Liquidação
+                    </label>
 
-                    <select formControlName="moedaLiquidacao">
+                    <select id="moedaLiquidacao" formControlName="moedaLiquidacao">
 
                         <option value="BRL">
                             BRL
@@ -148,20 +164,43 @@
 
             </form>
 
-        </div>
+        </section>
 
-        <div class="simulation-result-card">
+        <aside class="simulation-result-card">
 
-            <div class="result-header">
-                <span>Resultado da Simulação</span>
-            </div>
+            <header class="result-header">
+                <h2>Resumo da Operação</h2>
+            </header>
 
             <div class="result-value">
 
-                <h1>
-                    R$
+                <span class="value-label">
+                    Valor Presente
+                </span>
+
+                <p class="main-value">
+
+                    {{ simulationForm.value.moedaTitulo }}
+
                     {{ resultado?.valorPresente | number:'1.2-2' }}
-                </h1>
+
+                </p>
+
+            </div>
+
+            <div class="liquidation-value">
+
+                <span class="value-label">
+                    Valor de Liquidação
+                </span>
+
+                <p class="secondary-value">
+
+                    {{ simulationForm.value.moedaLiquidacao }}
+
+                    {{ resultado?.valorLiquidacao | number:'1.2-2' }}
+
+                </p>
 
             </div>
 
@@ -189,7 +228,7 @@
 
                 <div class="detail-item">
 
-                    <span>Operação Cross Currency</span>
+                    <span>Conversão Cambial</span>
 
                     <strong>
 
@@ -206,7 +245,7 @@
 
             </div>
 
-        </div>
+        </aside>
 
     </div>
 
