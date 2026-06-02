@@ -2,68 +2,38 @@
 
     <header class="page-header">
 
-        <h1>
-            Histórico de Transações
-        </h1>
+        <h1>Histórico de Transações</h1>
 
-        <p>
-            Consulte operações realizadas e filtre os resultados por tipo de recebível e moeda.
-        </p>
+        <p>Consulte operações realizadas e filtre os resultados.</p>
 
     </header>
 
     <section class="filters-card" aria-labelledby="filters-title">
 
-        <h2 id="filters-title">
-            Filtros
-        </h2>
+        <h2 id="filters-title">Filtros</h2>
 
         <form [formGroup]="filterForm" class="filters-form">
 
             <div class="form-group">
 
-                <label for="tipo">
-                    Tipo de Recebível
-                </label>
+                <label for="tipo">Tipo</label>
 
                 <select id="tipo" formControlName="tipo">
-
-                    <option value="">
-                        Todos
-                    </option>
-
-                    <option value="Duplicata">
-                        Duplicata
-                    </option>
-
-                    <option value="Cheque">
-                        Cheque
-                    </option>
-
+                    <option value="">Todos</option>
+                    <option value="Duplicata">Duplicata</option>
+                    <option value="Cheque">Cheque</option>
                 </select>
 
             </div>
 
             <div class="form-group">
 
-                <label for="moeda">
-                    Moeda
-                </label>
+                <label for="moeda">Moeda</label>
 
                 <select id="moeda" formControlName="moeda">
-
-                    <option value="">
-                        Todas
-                    </option>
-
-                    <option value="BRL">
-                        BRL
-                    </option>
-
-                    <option value="USD">
-                        USD
-                    </option>
-
+                    <option value="">Todas</option>
+                    <option value="BRL">BRL</option>
+                    <option value="USD">USD</option>
                 </select>
 
             </div>
@@ -74,75 +44,38 @@
 
     <section class="table-card" aria-labelledby="transactions-title">
 
-        <h2 id="transactions-title">
-            Transações
-        </h2>
+        <h2 id="transactions-title">Transações</h2>
+
+        @if (loading) {
+        <p class="loading-indicator">Atualizando dados...</p>
+        }
+
+        @if (!loading) {
 
         <div class="table-wrapper">
 
             <table>
 
-                <caption class="sr-only">
-                    Lista de transações financeiras
-                </caption>
-
                 <thead>
-
                     <tr>
-
-                        <th scope="col">
-                            ID
-                        </th>
-
-                        <th scope="col">
-                            Tipo
-                        </th>
-
-                        <th scope="col">
-                            Moeda
-                        </th>
-
-                        <th scope="col">
-                            Valor
-                        </th>
-
-                        <th scope="col">
-                            Data
-                        </th>
-
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Moeda</th>
+                        <th>Valor</th>
+                        <th>Data</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
 
-                    @for (
-                    transaction of filteredTransactions;
-                    track transaction.id
-                    ) {
+                    @for (transaction of transactions; track transaction.id) {
 
                     <tr>
-
-                        <td>
-                            {{ transaction.id }}
-                        </td>
-
-                        <td>
-                            {{ transaction.tipo }}
-                        </td>
-
-                        <td>
-                            {{ transaction.moeda }}
-                        </td>
-
-                        <td>
-                            {{ transaction.valor | number:'1.2-2' }}
-                        </td>
-
-                        <td>
-                            {{ transaction.data }}
-                        </td>
-
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.tipo }}</td>
+                        <td>{{ transaction.moeda }}</td>
+                        <td>{{ transaction.valor | number:'1.2-2' }}</td>
+                        <td>{{ transaction.data | date:'dd/MM/yyyy' }}</td>
                     </tr>
 
                     }
@@ -152,6 +85,16 @@
             </table>
 
         </div>
+
+        }
+
+        <p class="pagination-status">
+            Página {{ currentPage + 1 }} de {{ totalPages }}
+        </p>
+
+        <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="currentPage"
+            [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
+        </mat-paginator>
 
     </section>
 

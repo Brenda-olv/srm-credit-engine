@@ -1,11 +1,7 @@
-import { Component } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
-
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { TransactionsService } from '../../services/transactions.service';
 import { Transactions } from '../../models/transactions.model';
@@ -15,16 +11,24 @@ import { Transactions } from '../../models/transactions.model';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    DecimalPipe
+    DatePipe,
+    DecimalPipe,
+    MatPaginatorModule
   ],
   templateUrl: './transactions.html',
   styleUrl: './transactions.scss'
 })
-export class TransactionsComponent {
+export class TransactionsComponent implements OnInit {
+
+  loading = false;
 
   transactions: Transactions[] = [];
 
-  filteredTransactions: Transactions[] = [];
+  totalItems = 0;
+
+  pageSize = 10;
+
+  currentPage = 0;
 
   filterForm = new FormGroup({
     tipo: new FormControl(''),
@@ -32,41 +36,57 @@ export class TransactionsComponent {
   });
 
   constructor(
-    private transactionsService: TransactionsService
-  ) {
+    private transactionsService: TransactionsService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
-    this.transactions =
-      this.transactionsService.getTransactions();
+  ngOnInit(): void {
+    this.loadTransactions();
 
-    this.filteredTransactions =
-      this.transactions;
-
+    // quando filtro muda -> volta pra página 0
     this.filterForm.valueChanges.subscribe(() => {
-      this.applyFilters();
+      this.currentPage = 0;
+      this.loadTransactions();
     });
-
   }
 
-  private applyFilters(): void {
-
-    const filters =
-      this.filterForm.getRawValue();
-
-    this.filteredTransactions =
-      this.transactions.filter(transaction => {
-
-        const tipoMatch =
-          !filters.tipo ||
-          transaction.tipo === filters.tipo;
-
-        const moedaMatch =
-          !filters.moeda ||
-          transaction.moeda === filters.moeda;
-
-        return tipoMatch && moedaMatch;
-
-      });
-
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.pageSize);
   }
 
+  loadTransactions(): void {
+
+    this.loading = true;
+
+    const { tipo, moeda } = this.filterForm.getRawValue();
+
+    this.transactionsService.getTransactions(
+      this.currentPage,
+      this.pageSize,
+      tipo ?? undefined,
+      moeda ?? undefined
+    ).subscribe({
+      next: (response) => {
+
+        this.transactions = response.data;
+        this.totalItems = response.total;
+
+        this.loading = false;
+
+        this.cdr.detectChanges();
+      },
+
+      error: () => {
+        this.loading = false;
+        console.error('Erro ao carregar transações');
+      }
+    });
+  }
+  onPageChange(event: PageEvent): void {
+
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    this.loadTransactions();
+  }
 }
