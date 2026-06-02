@@ -1,27 +1,37 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
-import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
-import { SimulationComponent } from './features/simulation/pages/simulation/simulation';
-import { TransactionsComponent } from './features/transactions/pages/transactions/transactions';
 
 export const routes: Routes = [
-
     {
         path: '',
         component: MainLayoutComponent,
         children: [
             {
                 path: '',
-                component: DashboardComponent
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
             },
+
+            {
+                path: 'dashboard',
+                loadChildren: () =>
+                    import('./features/dashboard/routes/dashboard.routes')
+                        .then(m => m.dashboardRoutes)
+            },
+
             {
                 path: 'simulation',
-                component: SimulationComponent
+                loadChildren: () =>
+                    import('./features/simulation/routes/simulation.routes')
+                        .then(m => m.simulationRoutes)
             },
+
             {
                 path: 'transactions',
-                component: TransactionsComponent
-            },
+                loadChildren: () =>
+                    import('./features/transactions/routes/transactions.routes')
+                        .then(m => m.transactionsRoutes)
+            }
         ]
     }
 ];
