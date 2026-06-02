@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from '../../../transactions/services/transactions.service';
 import { Transactions } from '../../../transactions/models/transactions.model';
 import { DecimalPipe } from '@angular/common';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +22,10 @@ export class DashboardComponent implements OnInit {
   spreadMedio = 0;
   liquidacoesHoje = 0;
 
-  constructor(private transactionsService: TransactionsService) { }
+  constructor(private transactionsService: TransactionsService,
+    private notification: NotificationService
+
+  ) { }
 
   ngOnInit(): void {
     this.loadDashboard();
@@ -32,6 +36,9 @@ export class DashboardComponent implements OnInit {
     this.transactions = this.transactionsService.getAllTransactions();
 
     this.calculateMetrics();
+
+    this.notification.success('Dashboard carregado com sucesso');
+
   }
 
   private calculateMetrics(): void {

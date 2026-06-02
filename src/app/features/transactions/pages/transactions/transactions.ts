@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { TransactionsService } from '../../services/transactions.service';
 import { Transactions } from '../../models/transactions.model';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-transactions',
@@ -37,7 +38,9 @@ export class TransactionsComponent implements OnInit {
 
   constructor(
     private transactionsService: TransactionsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notification: NotificationService,
+
   ) { }
 
   ngOnInit(): void {
@@ -71,12 +74,16 @@ export class TransactionsComponent implements OnInit {
         this.totalItems = response.total;
 
         this.loading = false;
+        this.notification.success('Transações carregadas com sucesso');
+
 
         this.cdr.detectChanges();
       },
 
       error: () => {
         this.loading = false;
+        this.notification.error('Erro ao carregar transações');
+
         console.error('Erro ao carregar transações');
       }
     });
