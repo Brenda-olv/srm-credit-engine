@@ -43,7 +43,6 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
     this.loadTransactions();
 
-    // quando filtro muda -> volta pra página 0
     this.filterForm.valueChanges.subscribe(() => {
       this.currentPage = 0;
       this.loadTransactions();

@@ -32,7 +32,6 @@ export class TransactionsService {
         moeda?: string
     ): Observable<PaginatedResponse<Transactions>> {
 
-        // filtro simulando backend real
         const filtered = this.mockData.filter(item => {
 
             const tipoMatch = !tipo || item.tipo === tipo;
@@ -44,11 +43,13 @@ export class TransactionsService {
         const start = page * pageSize;
         const end = start + pageSize;
 
-        const paginated = filtered.slice(start, end);
-
         return of({
-            data: paginated,
+            data: filtered.slice(start, end),
             total: filtered.length
         }).pipe(delay(500));
+    }
+
+    getAllTransactions(): Transactions[] {
+        return this.mockData;
     }
 }

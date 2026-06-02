@@ -4,9 +4,7 @@
 
         <h1>Dashboard</h1>
 
-        <p>
-            Visão geral das operações financeiras.
-        </p>
+        <p>Visão geral das operações financeiras.</p>
 
     </header>
 
@@ -14,48 +12,40 @@
 
         <article class="card">
 
-            <span class="card-label">
-                Volume Total
-            </span>
+            <span class="card-label">Volume Total</span>
 
             <p class="card-value">
-                R$ 12.5M
+                R$ {{ volumeTotal | number:'1.2-2' }}
             </p>
 
         </article>
 
         <article class="card">
 
-            <span class="card-label">
-                Operações em USD
-            </span>
+            <span class="card-label">Operações em USD</span>
 
             <p class="card-value">
-                248
+                {{ operacoesUSD }}
             </p>
 
         </article>
 
         <article class="card">
 
-            <span class="card-label">
-                Spread Médio
-            </span>
+            <span class="card-label">Spread Médio</span>
 
             <p class="card-value">
-                2.1%
+                {{ spreadMedio | number:'1.2-2' }}%
             </p>
 
         </article>
 
         <article class="card">
 
-            <span class="card-label">
-                Liquidações de Hoje
-            </span>
+            <span class="card-label">Liquidações de Hoje</span>
 
             <p class="card-value">
-                1.284
+                {{ liquidacoesHoje }}
             </p>
 
         </article>
