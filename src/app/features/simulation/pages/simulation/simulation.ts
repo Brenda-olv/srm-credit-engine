@@ -7,8 +7,12 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
+
 import { SimulationResult } from '../../models/simulation-result.model';
 import { SimulationService } from '../../services/simulation.service';
+import { Currency } from '../../../../shared/enums/currency.model';
+
+type RecebivelType = 'duplicata' | 'cheque';
 
 @Component({
   selector: 'app-simulation',
@@ -25,6 +29,7 @@ export class SimulationComponent {
   resultado?: SimulationResult;
 
   simulationForm = new FormGroup({
+
     valorRecebivel: new FormControl<number | null>(
       100000,
       [
@@ -41,11 +46,18 @@ export class SimulationComponent {
       ]
     ),
 
-    tipoRecebivel: new FormControl<string>('duplicata'),
+    tipoRecebivel: new FormControl<RecebivelType>(
+      'duplicata'
+    ),
 
-    moedaTitulo: new FormControl<string>('BRL'),
+    moedaTitulo: new FormControl<Currency>(
+      Currency.BRL
+    ),
 
-    moedaLiquidacao: new FormControl<string>('BRL')
+    moedaLiquidacao: new FormControl<Currency>(
+      Currency.BRL
+    )
+
   });
 
   constructor(
@@ -70,10 +82,8 @@ export class SimulationComponent {
         formValue.valorRecebivel ?? 0,
         formValue.prazo ?? 0,
         formValue.tipoRecebivel ?? 'duplicata',
-        formValue.moedaTitulo ?? 'BRL',
-        formValue.moedaLiquidacao ?? 'BRL'
+        formValue.moedaTitulo ?? Currency.BRL,
+        formValue.moedaLiquidacao ?? Currency.BRL
       );
-
   }
-
 }

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { DuplicataStrategy } from '../strategies/duplicata.strategy';
 import { ChequeStrategy } from '../strategies/cheque.strategy';
-
 import { SimulationResult } from '../models/simulation-result.model';
 import { CurrencyService } from './currency.service';
+import { Currency } from '../../../shared/enums/currency.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class SimulationService {
     valorRecebivel: number,
     prazo: number,
     tipoRecebivel: string,
-    moedaTitulo: string,
-    moedaLiquidacao: string
+    moedaTitulo: Currency,
+    moedaLiquidacao: Currency
   ): SimulationResult {
 
     const strategy =
