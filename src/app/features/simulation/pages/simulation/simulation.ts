@@ -10,7 +10,7 @@ import {
 
 import { SimulationResult } from '../../models/simulation-result.model';
 import { SimulationService } from '../../services/simulation.service';
-import { Currency } from '../../../../shared/enums/currency.model';
+import { Currency } from '../../../../shared/enums/currency.enum';
 
 type RecebivelType = 'duplicata' | 'cheque';
 

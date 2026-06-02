@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Currency } from '../../../shared/enums/currency.model';
+import { Currency } from '../../../shared/enums/currency.enum';
 
 @Injectable({
     providedIn: 'root'

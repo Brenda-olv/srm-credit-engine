@@ -4,7 +4,7 @@ import { DuplicataStrategy } from '../strategies/duplicata.strategy';
 import { ChequeStrategy } from '../strategies/cheque.strategy';
 import { SimulationResult } from '../models/simulation-result.model';
 import { CurrencyService } from './currency.service';
-import { Currency } from '../../../shared/enums/currency.model';
+import { Currency } from '../../../shared/enums/currency.enum';
 
 @Injectable({
   providedIn: 'root'
