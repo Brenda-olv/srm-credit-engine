@@ -1,59 +1,102 @@
-# SrmCreditEngine
+# Plataforma de Cessão de Crédito Multimoedas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.13.
+Sistema frontend desenvolvido em Angular para simulação de uma plataforma de análise e gestão de operações financeiras, com foco em transações multimoedas, dashboards analíticos e experiência de usuário.
 
-## Development server
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
+## Visão Geral 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação simula uma plataforma financeira onde é possível:
 
-## Code scaffolding
+- Visualizar transações financeiras
+- Filtrar operações por tipo e moeda
+- Navegar com paginação
+- Analisar indicadores financeiros em um dashboard
+- Receber feedbacks visuais de ações
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Funcionalidades
 
-```bash
-ng generate --help
-```
 
-## Building
+### Transações
+- Listagem de operações financeiras
+- Paginação com Angular Material
+- Filtros por:
+  - Tipo (Duplicata / Cheque)
+  - Moeda (BRL / USD)
+- Simulação de backend com dados mockados
 
-To build the project run:
 
-```bash
-ng build
-```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Dashboard
+Indicadores calculados a partir do mesmo dataset de transações:
 
-## Running unit tests
+- Volume total de operações
+- Quantidade de operações em USD
+- Spread médio (simulado a partir dos dados)
+- Liquidações do dia
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
-```bash
-ng test
-```
 
-## Running end-to-end tests
+### Sistema de Notificações
+- Feedback global com Angular Material Snackbar
+- Mensagens de sucesso e erro
+- Service centralizado reutilizável
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Arquitetura
 
-## Additional Resources
+O projeto segue uma arquitetura baseada em feature modules e standalone components, com separação clara entre:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- core (serviços globais)
+- features (dashboard, transactions, simulation)
+- shared (componentes reutilizáveis)
+
+## Decisões Técnicas
+
+- Uso de **Angular Standalone Components**
+- Centralização de dados no `TransactionsService`
+- Simulação de backend via `mockData`
+- Dashboard baseado em agregação de dados reais
+- Paginação simulando comportamento de API
+- Uso de Angular Material para UI consistente
+- Snackbar service global para UX padronizada
+
+
+
+## Tecnologias
+
+- Angular 21+
+- TypeScript
+- Angular Material
+- RxJS
+- SCSS
+
+
+
+## Como rodar o projeto
+
+- npm install
+- ng serve
+- Acesse http://localhost:4200
+
+
+## Destaques do Projeto
+
+- Estrutura modular e escalável
+- Boas práticas de Angular moderno (standalone)
+- Separação de responsabilidades (services / features / shared)
+- UX com feedback visual global
+
+## Melhorias Futuras do Projeto
+
+- Integração com API real (REST)
+- Autenticação de usuários
+- Cache de requisições (RxJS / Signals)
+- Gráficos no dashboard
+- Exportação de relatórios (PDF/Excel)
+
+
+ 
